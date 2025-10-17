@@ -11,6 +11,8 @@ import os
 from src.logger import logging
 from src.exception import MyException
 import sys
+from dotenv import load_dotenv
+load_dotenv()
 
 
 # Below code block is for production use
@@ -105,12 +107,12 @@ def main():
     mlflow.set_experiment("my-dvc-pipeline")
     with mlflow.start_run() as run:  # Start an MLflow run
         try:
+            # mlflow.end_run()
             reg = load_model('./model/model.pkl')
             test_data = load_data('./Artifacts/processed/valid_processed.csv')
 
             X_test = test_data.iloc[:, :-1].values
             y_test = test_data.iloc[:, -1].values
-            mlflow.start_run(run_name='LGBM MLOPS Logged')
             metrics = evaluate_model(reg, X_test, y_test) #type: ignore
             
             save_metrics(metrics, 'reports/metrics.json')
@@ -133,6 +135,7 @@ def main():
             
             # Log the metrics file to MLflow
             mlflow.log_artifact('reports/metrics.json')
+            # mlflow.end_run()
 
         except Exception as e:
             raise MyException(e,sys) # type: ignore

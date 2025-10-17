@@ -1,0 +1,88 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python -m src.data.data_ingestion
+    deps:
+    - path: src/connections/s3_connection.py
+      hash: md5
+      md5: b58f00e5e0355f8e9b9f3b562d1a39b4
+      size: 2129
+    - path: src/data/data_ingestion.py
+      hash: md5
+      md5: 97606019d87305e4027cf9fae48dbbd8
+      size: 2700
+    params:
+      params.yaml:
+        data_ingestion.test_size: 0.2
+    outs:
+    - path: Artifacts/raw
+      hash: md5
+      md5: 3994d7c9884cb9481c0cdc89e086728b.dir
+      size: 6745472
+      nfiles: 2
+  Feature_Engineering:
+    cmd: python -m src.data.feature_engineering
+    deps:
+    - path: Artifacts/raw
+      hash: md5
+      md5: 3994d7c9884cb9481c0cdc89e086728b.dir
+      size: 6745472
+      nfiles: 2
+    - path: src/data/feature_engineering.py
+      hash: md5
+      md5: a07d19af3629accd7abd1e4e43423b08
+      size: 4833
+    outs:
+    - path: Artifacts/processed
+      hash: md5
+      md5: 954c31426923130762bc58651a80ac7f.dir
+      size: 6551114
+      nfiles: 2
+  model_building:
+    cmd: python -m src.models.model_builder
+    deps:
+    - path: Artifacts/processed
+      hash: md5
+      md5: 954c31426923130762bc58651a80ac7f.dir
+      size: 6551114
+      nfiles: 2
+    - path: src/models/model_builder.py
+      hash: md5
+      md5: 53ab43986009ab2978210ab307d4447c
+      size: 1974
+    outs:
+    - path: model/model.pkl
+      hash: md5
+      md5: e4a69098e88ece96727b606d941acea3
+      size: 11371892
+  model_evaluation:
+    cmd: python -m src.models.model_evaluation
+    deps:
+    - path: model/model.pkl
+      hash: md5
+      md5: e4a69098e88ece96727b606d941acea3
+      size: 11371892
+    - path: src/models/model_evaluation.py
+      hash: md5
+      md5: e499e3bce08b3e06577d51ee2407b663
+      size: 5060
+    outs:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: 9e0a3ee4cccb1d8f38e49094f1b7c8a4
+      size: 82
+    - path: reports/metrics.json
+      hash: md5
+      md5: 0bf8931088e5da1cfac8b709a7fc477e
+      size: 103
+  model_registration:
+    cmd: python -m src.models.model_registry
+    deps:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: 9e0a3ee4cccb1d8f38e49094f1b7c8a4
+      size: 82
+    - path: src/models/model_registry.py
+      hash: md5
+      md5: 236f015b88a229d29e50f16f3ac34119
+      size: 2941

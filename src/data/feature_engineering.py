@@ -68,6 +68,30 @@ def clip(f):
         return mu*(Phi_b-Phi_a)+sigma*(phi_a-phi_b)+1-Phi_b
     return clip_f
 
+rt = {
+    'highway':0,
+    'rural':1,
+    'urban':2
+}
+
+light = {
+    'dim':0,
+    'daylight':1,
+    'night':2
+}
+
+weather = {
+    'foggy':0,
+    'clear':1,
+    'rainy':2
+}
+
+tod = {
+    'morning':0,
+    'evening':1,
+    'afternoon':2
+}
+
 
 def main():
     try:
@@ -81,12 +105,16 @@ def main():
         train_data["y"] = z.values
         z = clip(f)(valid_data)
         valid_data["y"] = z.values
-        # train_processed_data = preprocess_dataframe(train_data, 'review')
-        # test_processed_data = preprocess_dataframe(test_data, 'review')
-        CATS = [col for col in train_data.columns if train_data[col].dtype in ['O']]
-        for col in CATS:
-            train_data[col],_ = train_data[col].factorize()
-            valid_data[col],_ = valid_data[col].factorize()
+        
+        train_data['road_type'] = train_data['road_type'].map(rt)
+        train_data['lighting'] = train_data['lighting'].map(light)
+        train_data['weather'] = train_data['weather'].map(weather)
+        train_data['time_of_day'] = train_data['time_of_day'].map(tod)
+
+        valid_data['road_type'] = valid_data['road_type'].map(rt)
+        valid_data['lighting'] = valid_data['lighting'].map(light)
+        valid_data['weather'] = valid_data['weather'].map(weather)
+        valid_data['time_of_day'] = valid_data['time_of_day'].map(tod)
 
         # Store the data inside data/processed
         data_path = os.path.join("./Artifacts", "processed")

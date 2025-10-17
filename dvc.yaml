@@ -1,0 +1,44 @@
+# updated dvc.yaml
+
+stages:
+  data_ingestion:
+    cmd: python -m src.data.data_ingestion
+    deps:
+    - src/data/data_ingestion.py
+    - src/connections/s3_connection.py
+    params:
+    - data_ingestion.test_size
+    outs:
+    - Artifacts/raw
+
+  Feature_Engineering:
+    cmd: python -m src.data.feature_engineering
+    deps:
+    - Artifacts/raw
+    - src/data/feature_engineering.py
+    outs:
+    - Artifacts/processed
+
+  model_building:
+    cmd: python -m src.models.model_builder
+    deps:
+    - Artifacts/processed
+    - src/models/model_builder.py
+    outs:
+    - model/model.pkl
+
+  model_evaluation:
+    cmd: python -m src.models.model_evaluation
+    deps:
+    - model/model.pkl
+    - src/models/model_evaluation.py
+    metrics:
+    - reports/metrics.json
+    outs:
+    - reports/experiment_info.json  # Add the model_info.json file as an output
+
+  model_registration:
+    cmd: python -m src.models.model_registry
+    deps:
+    - reports/experiment_info.json
+    - src/models/model_registry.py

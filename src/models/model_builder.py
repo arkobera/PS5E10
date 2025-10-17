@@ -57,9 +57,9 @@ def main():
 
         
         model = LGBMRegressor(**params_lgbm)
-        clf = train_model(X_train, y_train, model) #type: ignore
+        reg = train_model(X_train, y_train, model) #type: ignore
         
-        save_model(clf, 'model/model.pkl')
+        save_model(reg, 'model/model.pkl')
     except Exception as e:
         raise MyException(e,sys) # type: ignore
 

@@ -12,6 +12,8 @@ warnings.simplefilter("ignore", UserWarning)
 warnings.filterwarnings("ignore")
 from src.exception import MyException
 import sys
+from dotenv import load_dotenv
+load_dotenv()
 
 # Below code block is for production use
 # -------------------------------------------------------------------------------------
