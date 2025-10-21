@@ -9,7 +9,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 
 # Define the path to the CSV file
-DATA_PATH = BASE_DIR / "Data" / "data.csv"
+DATA_PATH = BASE_DIR / "data.csv"
 
 MAX_SAMPLES = 2000
 

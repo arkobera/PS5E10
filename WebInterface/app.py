@@ -2,13 +2,13 @@ import streamlit as st
 import mlflow
 import dagshub
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # Import page functions from the separate files
 from home import home_page
 from games import play_quiz_page
 
-load_dotenv()
+# load_dotenv()
 
 # -----------------------------------------------------
 # 🔹 Global Setup & DagsHub Initialization
