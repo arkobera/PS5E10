@@ -26,3 +26,12 @@
 # prometheus_client
 # -e .
 # # cookiecutter -c v1 https://github.com/drivendata/cookiecutter-data-science
+
+streamlit
+pandas
+numpy
+scipy
+mlflow
+mlflow_skinny
+dagshub
+python-dotenv
