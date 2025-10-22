@@ -24,7 +24,7 @@ def load_data():
     """Loads and caches the data for efficient use."""
     # Check for existence using the Path object
     if not DATA_PATH.exists():
-        st.error(f"Error: Data file not found at {DATA_PATH}. Please ensure the 'Data' folder and 'data.csv' exist.")
+        st.error(f"Error: Data file not found at {DATA_PATH}. Please ensure the and 'data.csv' exist.")
         return None
     try:
         # Pass the Path object directly to read_csv

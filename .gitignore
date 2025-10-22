@@ -208,6 +208,6 @@ __marimo__/
 
 
 *.log
-*.csv
+Artifacts/
 *.pkl
 *.json
