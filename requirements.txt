@@ -27,11 +27,14 @@
 # -e .
 # # cookiecutter -c v1 https://github.com/drivendata/cookiecutter-data-science
 
-streamlit
-pandas
-numpy
-scipy
-mlflow
-mlflow_skinny
-dagshub
-python-dotenv
+dagshub==0.4.2
+Flask==2.3.3
+mlflow==2.15.0
+mlflow_skinny==2.15.0
+pandas==2.2.3
+matplotlib==3.10.1
+cffi==1.17.1
+lightgbm==4.6.0
+psutil==7.0.0
+scikit-learn==1.5.1
+scipy==1.14.0
