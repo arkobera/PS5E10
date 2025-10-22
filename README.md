@@ -1,7 +1,7 @@
 # PS5E10: Playground Competition MLOps
 
 This repository contains the full **MLOps pipeline** for the PS5E10 Kaggle Playground competition. The project demonstrates a production-ready workflow for data ingestion, feature engineering, model training, evaluation, and deployment using **DVC, MLflow, Streamlit, and GitHub Actions**.
-
+Link to Deployment: https://ps5e10-ktr9ed72wvfz7hh8lwdlwu.streamlit.app/
 -----
 
 ## 📂 Project Structure
